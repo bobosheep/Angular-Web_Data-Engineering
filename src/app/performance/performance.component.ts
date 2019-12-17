@@ -9,7 +9,7 @@ export class PerformanceComponent implements OnInit {
 
 
   performances: any[] = [{
-    title : 'Proj.1 斷句與搜尋 Breaking Sentences and Searching',
+    title : 'Proj.0 斷句與搜尋 Breaking Sentences and Searching',
     subtitle : 'Performance', 
     panels : [
       {
@@ -35,6 +35,40 @@ export class PerformanceComponent implements OnInit {
                   ]  
         
       },
+    ]
+  }, {
+    title : 'Proj.1 rsort',
+    subtitle : 'Performance', 
+    panels : [
+      {
+        title: 'Preprocessing',
+        subtitle : 'from 1.88 GB data',
+        contents : ['Total articles: 829,787','Time cost: 18.7664 s',
+                    'Average time cost per article: 0.0226 ms'
+                  ]
+      },
+      {
+        title: 'Internal Sort',
+        subtitle : '',
+        contents : [ ]
+      },
+      {
+        title: 'External Sort',
+        subtitle : '',
+        contents : [ ]  
+        
+      },
+    ]
+  }, {
+    title : 'Proj.2 rgrep',
+    subtitle : 'Performance', 
+    panels : [
+      {
+        title: 'search pattern',
+        subtitle : 'from 1.88 GB data',
+        contents : ['Total articles: 829,788','Time cost: 10 s'
+                  ]
+      }
     ]
   }]
 

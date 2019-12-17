@@ -30,20 +30,44 @@ h1 {
   font-weight: 100;
 }
 
-.waiting{
+.waiting, .not-found{
   width: 50%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10%;
+  margin-bottom: 10%;
   align-content: center;  
 }
-.page{
-  
-  width: 70%;
+.card-container {
   margin-left: auto;
   margin-right: auto;
+  width: 100%;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
 }
-
+.card {
+  width: 28%;
+  flex-shrink: 0;
+  flex-grow: 0; 
+  min-height: 50%;
+  max-height: 50%;
+}
+.card > .mat-card-header {
+  font-size: 14px;
+}
+.card > .mat-card-image {
+  max-height: 200px;
+}
+.mat-card-image:hover {
+  cursor: pointer;
+}
+.card > .mat-card-content {
+  overflow: hidden;
+  max-height: 150px;
+  padding: 12px;
+}
 .find_term{
   font-color: rgb(255, 51, 40);
 

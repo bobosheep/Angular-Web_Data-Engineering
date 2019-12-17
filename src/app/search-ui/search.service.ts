@@ -15,9 +15,9 @@ export class myHttpService {
     constructor(private http: HttpClient){}
 
 
-    getSearchSentence(term: string, page: string): Observable< any >{
+    getSearchSentence(term: string, page: number): Observable< any >{
         const options = term ?
-        { params: new HttpParams().set('term', term).append('page', page) } : {};
+        { params: new HttpParams().set('term', term).append('page', page.toString()) } : {};
         return this.http.get<any>(`http://localhost:5000/search`, options)
     }
 }

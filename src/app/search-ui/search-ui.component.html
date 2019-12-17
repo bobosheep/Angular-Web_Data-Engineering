@@ -1,6 +1,6 @@
 
 <div class="container">
-  <h1>  Sentences Search!</h1>
+  <h1>  Record Search!</h1>
   <mat-form-field class="search-input">
     <input type="text" matInput [(ngModel)]="value" (keyup.enter)="searchTerm(value, 1)">
     <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
@@ -18,21 +18,43 @@
   </div>
   
   <div *ngIf="searchResult.search_time && !isWaiting">
-    <p> Search Time: {{ searchResult.search_time | number:'1.3'}} </p><p> Total Result: {{ searchResult.total_results }}</p>
+    <p> Search Time: {{ searchResult.search_time | number:'1.3'}} </p><p> Match records: {{ searchResult.total_results }}</p>
   </div>
-  <nav mat-tab-nav-bar class="page" [backgroundColor]="" *ngIf="searchResult.search_time && !isWaiting">
-    <a mat-tab-link *ngFor="let page of pages"
-        (click)="activePage = page;searchTerm(value, page)"
-        [active]="activePage == page"> {{ page }} </a>
-  </nav>
+  <div class="not-found" *ngIf="searchResult.total_results == 0 && !isWaiting">
+    <img width="400px" src="https://media.giphy.com/media/14uQ3cOFteDaU/giphy.gif">
+  </div>
   
-  <mat-list *ngIf="searchResult.search_time && !isWaiting">
+  <section class="card-container" *ngIf="searchResult.total_results && !isWaiting">
+    <mat-card class="card" *ngFor="let s of sentences; last as last">
+      <mat-card-header>
+        <mat-card-title><a href="{{ s.url }}" [innerHtml]="s.name"></a></mat-card-title>
+        <mat-card-subtitle> matches: {{ s.count }} </mat-card-subtitle>
+      </mat-card-header>
+        <img mat-card-image [src]="s.img_link" alt="Photo of {{ s.name }}" (click)="openUrl(s.url)">
+      <mat-card-content  [innerHtml]="s.body">
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" >LIKE</button>
+        <button mat-raised-button color="warn">SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </section>
+
+  <!--mat-list *ngIf="searchResult.search_time && !isWaiting">
     <mat-list-item class="sentence-results" *ngFor="let s of sentences; last as last">
       <div class="title" mat-line [innerHTML]="s.name"></div>
-      <div class="detail" mat-line> occurrences: {{ s.count }} </div>
+      <div class="detail" mat-line> matches: {{ s.count }} </div>
     <mat-divider  [inset]="true" *ngIf="!last"></mat-divider>
     </mat-list-item>
-  </mat-list>
+  </mat-list-->
+
+  <div [hidden]="!(searchResult.total_results >= 15) || isWaiting" >
+    <mat-paginator [length]="searchResult.total_results"
+      [pageSize]="15"
+      (page)="pageChange($event)">
+    </mat-paginator>
+  </div>
 
   <div class="empty" *ngIf="!searchResult.search_time">
   </div>
